@@ -1,24 +1,26 @@
-import {Layout, Text} from "@ui-kitten/components";
-import Checkbox from 'react-native-modest-checkbox'
-import React from "react";
+import React, {useState} from "react";
 import {
     Icon,
     List,
     ListItem,
     CheckBox,
-    Button
+    Button,
+    Layout,
+    Text
 } from '@ui-kitten/components';
 
 import {Icon as IconNat} from 'react-native-elements'
+import {ScrollView} from "react-native";
 
-const data = new Array(8).fill({
+const data = new Array(16).fill({
     title: 'Title for Item',
     description: 'Description for Item',
 });
 
+
 const ListItemCustom = ({item, index}) => {
 
-    // const [checked, setChecked] = React.useState(true);
+    // const [checked, setChecked] = useState();
     // React.useState(true);
 
     const StarIcon = () => (
@@ -46,7 +48,9 @@ const ListItemCustom = ({item, index}) => {
 
     const renderItemAccessory = (style) => (
         <Button
-            style={style}
+            style={{
+                paddingHorizontal: 0,
+            }}
             appearance='ghost'
             onPress={onBtnPress}
             icon={StarIcon}
@@ -55,6 +59,9 @@ const ListItemCustom = ({item, index}) => {
 
     return (
         <ListItem
+            style={{
+                marginVertical: 6
+            }}
             title={`${item.title} ${index + 1}`}
             description={`${item.description} ${index + 1}`}
             accessory={renderItemAccessory}
@@ -62,20 +69,22 @@ const ListItemCustom = ({item, index}) => {
     );
 };
 
-const ListCompositeItemShowcase = () => {
-    return (
-        <List
-            data={data}
-            renderItem={ListItemCustom}
-        />
-    );
-};
-
 const SavedScreen = () => (
-    <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        {/*<ListCompositeItemShowcase/>*/}
-        <ListCompositeItemShowcase/>
+    <Layout
+        style={{flex: 1, justifyContent: 'center'}}>
+        <ScrollView>
+            <List
+                contentContainerStyle={{
+                    paddingHorizontal: 16,
+                    paddingVertical: 6,
+                }}
+                data={data}
+                renderItem={ListItemCustom}
+                style={{flex: 1, flexDirection: 'column-reverse'}}
+            />
+        </ScrollView>
     </Layout>
+
 );
 
 export default SavedScreen;
